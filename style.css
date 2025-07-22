@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  text-align: center;
+  background-color: hsl(270, 100%, 5%);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+header {
+  max-height: 80px;
+}
+#homeButton {
+  margin-top: 8px;
+  float: left;
+  cursor: pointer;
+}
+#name, #scoreDisplay, .hiScores {
+  font-size: 2rem;
+  font-weight: bold;
+  color: aliceblue;
+}
+.wrapper {
+  max-width: 811px;
+  margin-inline: auto;
+}
+.scores {
+  margin: 13px;
+}
+button {
+  font-size: 2rem;
+  font-weight: bold;
+  color: aliceblue;
+}
+.options {
+  display: grid;
+  gap: 13px;
+  grid-template-columns: 
+    repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+}
+button {
+  border: 6px solid aliceblue;
+  border-radius: 13px;
+  color: aliceblue;
+  background-color: hsl(0, 0%, 5%);
+}
+button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem 1rem;
+  cursor: pointer;
+}
+button:hover {
+  background-color: hsl(0, 0%, 10%);
+}
+button:active {
+  background-color: hsl(0, 0%, 20%);
+}
+.badges, #clubBadge {
+  display: block;
+  max-height: 500px;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 430px) {
+  .badges, #clubBadge {
+    display: block;
+    max-height: 200px;
+    max-width: 100%;
+    object-fit: cover;
+  }
+  #scoreDisplay {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .badges, #clubBadge {
+    display: block;
+    max-height: 300px;
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
