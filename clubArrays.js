@@ -11,7 +11,7 @@ export const premClubs = [
   "Brentford",
   "Brighton & Hove Albion",
   "Burnley",
-  "Cardiff Citty",
+  "Cardiff City",
   "Charlton Athletic",
   "Chelsea",
   "Coventry City",
@@ -50,3 +50,7 @@ export const premClubs = [
   "Wigan Athletic",
   "Wolverhampton Wanderers",
 ];
+
+export const removed = [
+  "Its a team",
+]
