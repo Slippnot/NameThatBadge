@@ -9,7 +9,7 @@ export const premClubs = [
   "Bournemouth",
   "Bradford City",
   "Brentford",
-  "Brighton & Hove Albion",
+  "Brighton",
   "Burnley",
   "Cardiff City",
   "Charlton Athletic",

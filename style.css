@@ -37,7 +37,7 @@ button {
   font-weight: bold;
   color: aliceblue;
 }
-.options {
+.options, .gamemodes {
   display: grid;
   gap: 13px;
   grid-template-columns: 
