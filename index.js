@@ -11,20 +11,26 @@ const optionBTN = document.querySelectorAll(".optionBTN");
 const gamemodeButtons = document.querySelectorAll(".gamemodeButtons");
 const premGamemode = document.getElementById("premGamemode");
 
+const premClubArrayLength = premClubs.length;
+
 let score = 0;
 
 premGamemode.onclick = () => {
+  hideGamemodeButtonsAndDisplayGameButtons();
+  playGame(premClubs,premClubArrayLength,`premierLeagueBadges`);
+  optionBTN.forEach((buttons) => {
+    buttons.addEventListener("click", () => {
+      playGame(premClubs,premClubArrayLength,`premierLeagueBadges`);
+    });
+  });
+}
+
+function hideGamemodeButtonsAndDisplayGameButtons(){
   gamemodeButtons.forEach((e) => {
     e.style.display = `none`;
   });
   optionBTN.forEach((e) => {
     e.style.display = `block`;
-  });
-  playGame(premClubs,premClubs.length,`premierLeagueBadges`);
-  optionBTN.forEach((buttons) => {
-    buttons.addEventListener("click", () => {
-      playGame(premClubs,premClubs.length,`premierLeagueBadges`);
-    });
   });
 }
 
@@ -82,10 +88,6 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
     option4.innerHTML = `${badgeAnswer}`;
   }
 
-  removed.splice(1, 0, `${badgeQuestion}`);
-  let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
-  clubNameArray.splice(removeFromArray, 1);
-
   clubBadge.style.display = `block`;
   clubBadge.src = `clubBadgesImages/${badgeArtFolder}/${badgeQuestion}.png`;
 
@@ -97,8 +99,11 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
       scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
     }
     else {
-      scoreDisplay.innerHTML = `Wrong It Was ${badgeAnswer}`;
+      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
     }
+    removed.splice(1, 0, `${badgeQuestion}`);
+    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
+    clubNameArray.splice(removeFromArray, 1);
   }
   option2.onclick = () => {
     if(option2.innerHTML == badgeAnswer){
@@ -106,8 +111,11 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
       scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
     }
     else {
-      scoreDisplay.innerHTML = `Wrong It Was ${badgeAnswer}`;
+      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
     }
+    removed.splice(1, 0, `${badgeQuestion}`);
+    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
+    clubNameArray.splice(removeFromArray, 1);
   }
   option3.onclick = () => {
     if(option3.innerHTML == badgeAnswer){
@@ -115,8 +123,11 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
       scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
     }
     else {
-      scoreDisplay.innerHTML = `Wrong It Was ${badgeAnswer}`;
+      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
     }
+    removed.splice(1, 0, `${badgeQuestion}`);
+    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
+    clubNameArray.splice(removeFromArray, 1);
   }
   option4.onclick = () => {
     if(option4.innerHTML == badgeAnswer){
@@ -124,8 +135,18 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
       scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
     }
     else {
-      scoreDisplay.innerHTML = `Wrong It Was ${badgeAnswer}`;
+      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
     }
+    removed.splice(1, 0, `${badgeQuestion}`);
+    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
+    clubNameArray.splice(removeFromArray, 1);
+  }
+  
+  if(clubNameArray.length == 0){
+    optionBTN.forEach((e) => {
+      e.style.display = `none`;
+    });
+    scoreDisplay.innerHTML = `Total Score: ${score} / ${totalArrayLength}`;
   }
 }
 
