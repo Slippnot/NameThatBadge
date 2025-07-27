@@ -1,4 +1,4 @@
-export const premClubs = [
+export const premClubsArray = [
   "Arsenal",
   "Aston Villa",
   "Barnsley",
@@ -51,6 +51,19 @@ export const premClubs = [
   "Wolverhampton Wanderers",
 ];
 
-export const removed = [
+export const laLigaClubsArray = [
+  "Arenas",
+  "Athletic Bilbao",
+  "Atletico Madrid",
+  "AD Almeria",
+  "Albacete",
+  "Atletico Tetuan",
+  "Deportivo Alaves",
+  "UD Almeria",
+  "CD Alcoyano",
+  "FC Barcelona",
+];
+
+export const removedArray = [
   "Its a team",
 ]
