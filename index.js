@@ -1,5 +1,6 @@
 import * as globalArrays from "./clubArrays.js";
 
+// USED FOR TESTING NEW GAMEMODES --- clubNameArray[clubNameArray.length - 1] --- \\
 
 const clubBadge = document.getElementById("clubBadge");
 const scoreDisplay = document.getElementById("scoreDisplay");
