@@ -11,6 +11,9 @@ const option4 = document.getElementById("option4");
 const optionBTN = document.querySelectorAll(".optionBTN");
 const gamemodeButtons = document.querySelectorAll(".gamemodeButtons");
 
+const premHiScoreDisplay = document.getElementById("premHiScoreDisplay");
+const laLigaHiScoreDisplay = document.getElementById("laLigaHiScoreDisplay");
+
 const premGamemode = document.getElementById("premGamemode");
 const laLigaGamemode = document.getElementById("laLigaGamemode");
 
@@ -19,6 +22,9 @@ const laLigaClubArrayLength = globalArrays.laLigaClubsArray.length;
 
 let score = 0;
 
+let premHiScore = 0;
+let laLigaHiScore = 0;
+
 gamemodeButtons.forEach((buttons) => {
   buttons.addEventListener("click", () => {
     hideGamemodeButtonsAndDisplayGameButtons();
@@ -26,19 +32,29 @@ gamemodeButtons.forEach((buttons) => {
 });
 
 premGamemode.onclick = () => {
-  playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`);
+  if(localStorage.getItem("premHiScoreSaved") !== null){
+    let savedPremHiScore = JSON.parse(localStorage.getItem("premHiScoreSaved"));
+    premHiScoreDisplay.innerHTML = `Prem Hi-Score: ${savedPremHiScore} / ${premClubArrayLength}`;
+    premHiScore = savedPremHiScore;
+  }
+  playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
   optionBTN.forEach((buttons) => {
     buttons.addEventListener("click", () => {
-      playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`);
+      playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
     });
   });
 }
 
 laLigaGamemode.onclick = () => {
-  playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`);
+  if(localStorage.getItem("laLigaHiScoreSaved") !== null){
+    let savedLaLigaHiScore = JSON.parse(localStorage.getItem("laLigaHiScoreSaved"));
+    laLigaHiScoreDisplay.innerHTML = `La Liga Hi-Score: ${savedLaLigaHiScore} / ${laLigaClubArrayLength}`;
+    laLigaHiScore = savedLaLigaHiScore;
+  }
+  playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
   optionBTN.forEach((buttons) => {
     buttons.addEventListener("click", () => {
-      playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`);
+      playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
     });
   });
 }
@@ -52,7 +68,7 @@ function hideGamemodeButtonsAndDisplayGameButtons(){
   });
 }
 
-function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
+function playGame(clubNameArray,totalArrayLength,badgeArtFolder,hiScore,hiScoreDisplay,hiScoreText,hiScoreSaved){
   let rng = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
   let randomBadge = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   let wrong1 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
@@ -165,6 +181,12 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder){
       e.style.display = `none`;
     });
     scoreDisplay.innerHTML = `Total Score: ${score} / ${totalArrayLength}`;
+  }
+
+  if(score > hiScore){
+    hiScore = score;
+    hiScoreDisplay.innerHTML = `${hiScoreText}: ${hiScore} / ${totalArrayLength}`;
+    localStorage.setItem(`${hiScoreSaved}`, JSON.stringify(hiScore));
   }
 }
 
