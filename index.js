@@ -27,7 +27,12 @@ let laLigaHiScore = 0;
 
 gamemodeButtons.forEach((buttons) => {
   buttons.addEventListener("click", () => {
-    hideGamemodeButtonsAndDisplayGameButtons();
+    gamemodeButtons.forEach((e) => {
+      e.style.display = `none`;
+    });
+    optionBTN.forEach((e) => {
+      e.style.display = `block`;
+    });
   });
 });
 
@@ -56,15 +61,6 @@ laLigaGamemode.onclick = () => {
     buttons.addEventListener("click", () => {
       playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
     });
-  });
-}
-
-function hideGamemodeButtonsAndDisplayGameButtons(){
-  gamemodeButtons.forEach((e) => {
-    e.style.display = `none`;
-  });
-  optionBTN.forEach((e) => {
-    e.style.display = `block`;
   });
 }
 
@@ -98,28 +94,16 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder,hiScore,hiScoreD
   }
 
   if(rng === 1){
-    option1.innerHTML = `${badgeAnswer}`;
-    option2.innerHTML = `${wrong1}`;
-    option3.innerHTML = `${wrong2}`;
-    option4.innerHTML = `${wrong3}`;
+    setAnswerAndWrongOptions(badgeAnswer,wrong1,wrong2,wrong3);
   }
   if(rng === 2){
-    option1.innerHTML = `${wrong1}`;
-    option2.innerHTML = `${badgeAnswer}`;
-    option3.innerHTML = `${wrong2}`;
-    option4.innerHTML = `${wrong3}`;
+    setAnswerAndWrongOptions(wrong1,badgeAnswer,wrong2,wrong3);
   }
   if(rng === 3){
-    option1.innerHTML = `${wrong1}`;
-    option2.innerHTML = `${wrong2}`;
-    option3.innerHTML = `${badgeAnswer}`;
-    option4.innerHTML = `${wrong3}`;
+    setAnswerAndWrongOptions(wrong1,wrong2,badgeAnswer,wrong3);
   }
   if(rng === 4){
-    option1.innerHTML = `${wrong1}`;
-    option2.innerHTML = `${wrong2}`;
-    option3.innerHTML = `${wrong3}`;
-    option4.innerHTML = `${badgeAnswer}`;
+    setAnswerAndWrongOptions(wrong1,wrong2,wrong3,badgeAnswer);
   }
 
   clubBadge.style.display = `block`;
@@ -128,52 +112,16 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder,hiScore,hiScoreD
   scoreDisplay.style.display = `block`;
 
   option1.onclick = () => {
-    if(option1.innerHTML == badgeAnswer){
-      score++
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
-    }
-    else {
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
-    }
-    globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
-    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
-    clubNameArray.splice(removeFromArray, 1);
+    checkForCorrectAnswerAndRemoveAnswer(option1,badgeAnswer,scoreDisplay,totalArrayLength,badgeQuestion,clubNameArray);
   }
   option2.onclick = () => {
-    if(option2.innerHTML == badgeAnswer){
-      score++
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
-    }
-    else {
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
-    }
-    globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
-    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
-    clubNameArray.splice(removeFromArray, 1);
+    checkForCorrectAnswerAndRemoveAnswer(option2,badgeAnswer,scoreDisplay,totalArrayLength,badgeQuestion,clubNameArray);
   }
   option3.onclick = () => {
-    if(option3.innerHTML == badgeAnswer){
-      score++
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
-    }
-    else {
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
-    }
-    globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
-    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
-    clubNameArray.splice(removeFromArray, 1);
+    checkForCorrectAnswerAndRemoveAnswer(option3,badgeAnswer,scoreDisplay,totalArrayLength,badgeQuestion,clubNameArray);
   }
   option4.onclick = () => {
-    if(option4.innerHTML == badgeAnswer){
-      score++
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
-    }
-    else {
-      scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
-    }
-    globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
-    let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
-    clubNameArray.splice(removeFromArray, 1);
+    checkForCorrectAnswerAndRemoveAnswer(option4,badgeAnswer,scoreDisplay,totalArrayLength,badgeQuestion,clubNameArray);
   }
   
   if(clubNameArray.length == 0){
@@ -188,6 +136,26 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder,hiScore,hiScoreD
     hiScoreDisplay.innerHTML = `${hiScoreText}: ${hiScore} / ${totalArrayLength}`;
     localStorage.setItem(`${hiScoreSaved}`, JSON.stringify(hiScore));
   }
+}
+
+function checkForCorrectAnswerAndRemoveAnswer(option,badgeAnswer,scoreDisplay,totalArrayLength,badgeQuestion,clubNameArray){
+  if(option.innerHTML == badgeAnswer){
+    score++
+    scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
+  }
+  else {
+    scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
+  }
+  globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
+  let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
+  clubNameArray.splice(removeFromArray, 1);
+}
+
+function setAnswerAndWrongOptions(wrongOrAnswer1,wrongOrAnswer2,wrongOrAnswer3,wrongOrAnswer4){
+  option1.innerHTML = `${wrongOrAnswer1}`;
+  option2.innerHTML = `${wrongOrAnswer2}`;
+  option3.innerHTML = `${wrongOrAnswer3}`;
+  option4.innerHTML = `${wrongOrAnswer4}`;
 }
 
 document.getElementById("homeButton").onclick = () => {location.reload();}
