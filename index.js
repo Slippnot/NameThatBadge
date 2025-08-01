@@ -25,6 +25,9 @@ let score = 0;
 let premHiScore = 0;
 let laLigaHiScore = 0;
 
+var correctAudio = new Audio('audioFiles/CorrectAnswerAudio.mp3');
+var wrongAudio = new Audio('audioFiles/WrongtAnswerAudio.mp3');
+
 gamemodeButtons.forEach((buttons) => {
   buttons.addEventListener("click", () => {
     gamemodeButtons.forEach((e) => {
@@ -142,9 +145,11 @@ function checkForCorrectAnswerAndRemoveAnswer(option,badgeAnswer,scoreDisplay,to
   if(option.innerHTML == badgeAnswer){
     score++
     scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
+    playCorrectAudio();
   }
   else {
     scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
+    playWrongAudio();
   }
   globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
   let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
@@ -156,6 +161,14 @@ function setAnswerAndWrongOptions(wrongOrAnswer1,wrongOrAnswer2,wrongOrAnswer3,w
   option2.innerHTML = `${wrongOrAnswer2}`;
   option3.innerHTML = `${wrongOrAnswer3}`;
   option4.innerHTML = `${wrongOrAnswer4}`;
+}
+
+function playCorrectAudio(){
+  correctAudio.play();
+}
+
+function playWrongAudio(){
+  wrongAudio.play();
 }
 
 document.getElementById("homeButton").onclick = () => {location.reload();}
