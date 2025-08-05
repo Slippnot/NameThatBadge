@@ -48,6 +48,7 @@ gamemodeButtons.forEach((buttons) => {
     optionBTN.forEach((e) => {
       e.style.display = `block`;
     });
+    allHiscores.style.display = `none`;
   });
 });
 
