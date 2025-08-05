@@ -2,6 +2,7 @@ import * as globalArrays from "./clubArrays.js";
 
 // USED FOR TESTING NEW GAMEMODES --- clubNameArray[clubNameArray.length - 1] --- \\
 
+const homeButton = document.getElementById("homeButton");
 const titleName = document.getElementById("titleName");
 const clubBadge = document.getElementById("clubBadge");
 const scoreDisplay = document.getElementById("scoreDisplay");
@@ -197,4 +198,29 @@ function setTitleName(setname){
   titleName.innerHTML = `${setname}`;
 }
 
-document.getElementById("homeButton").onclick = () => {location.reload();}
+function checkForKeyPresses(){
+  window.addEventListener("keypress", (e) => {
+    if(e.defaultPrevented) {
+      return;
+    }
+
+    switch(e.key){
+      case "1":
+        option1.click();
+        break;
+      case "2":
+        option2.click();
+        break;
+      case "3":
+        option3.click();
+        break;
+      case "4":
+        option4.click();
+        break;
+      default:
+        return;
+    }
+  });
+}
+checkForKeyPresses();
+homeButton.onclick = () => {location.reload();}
