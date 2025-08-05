@@ -8,6 +8,7 @@ const option1 = document.getElementById("option1");
 const option2 = document.getElementById("option2");
 const option3 = document.getElementById("option3");
 const option4 = document.getElementById("option4");
+
 const optionBTN = document.querySelectorAll(".optionBTN");
 const gamemodeButtons = document.querySelectorAll(".gamemodeButtons");
 
@@ -16,6 +17,8 @@ const laLigaHiScoreDisplay = document.getElementById("laLigaHiScoreDisplay");
 
 const premGamemode = document.getElementById("premGamemode");
 const laLigaGamemode = document.getElementById("laLigaGamemode");
+
+const allHiscores = document.getElementById("allHiscores");
 
 const premClubArrayLength = globalArrays.premClubsArray.length;
 const laLigaClubArrayLength = globalArrays.laLigaClubsArray.length;
@@ -27,6 +30,15 @@ let laLigaHiScore = 0;
 
 var correctAudio = new Audio('audioFiles/CorrectAnswerAudio.mp3');
 var wrongAudio = new Audio('audioFiles/WrongtAnswerAudio.mp3');
+
+allHiscores.onclick = () => {
+  gamemodeButtons.forEach((e) => {
+    e.style.display = `none`;
+  });
+  allHiscores.style.display = `none`;
+  premHiScoreDisplay.innerHTML = `Prem Hi-Score: ${localStorage.getItem("premHiScoreSaved")} / ${premClubArrayLength}`;
+  laLigaHiScoreDisplay.innerHTML = `La Liga Hi-Score: ${localStorage.getItem("laLigaHiScoreSaved")} / ${laLigaClubArrayLength}`;
+}
 
 gamemodeButtons.forEach((buttons) => {
   buttons.addEventListener("click", () => {
@@ -145,15 +157,20 @@ function checkForCorrectAnswerAndRemoveAnswer(option,badgeAnswer,scoreDisplay,to
   if(option.innerHTML == badgeAnswer){
     score++
     scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Correct It Was ${badgeAnswer}`;
+    scoreDisplay.style.color = `hsl(120, 100%, 50%)`;
     playCorrectAudio();
   }
   else {
     scoreDisplay.innerHTML = `${score} / ${totalArrayLength} Wrong It Was ${badgeAnswer}`;
+    scoreDisplay.style.color = `hsl(0, 100%, 50%)`;
     playWrongAudio();
   }
   globalArrays.removedArray.splice(1, 0, `${badgeQuestion}`);
   let removeFromArray = clubNameArray.indexOf(`${badgeQuestion}`);
   clubNameArray.splice(removeFromArray, 1);
+  if(globalArrays.removedArray.includes("Its a team")){
+    globalArrays.removedArray.shift();
+  }
 }
 
 function setAnswerAndWrongOptions(wrongOrAnswer1,wrongOrAnswer2,wrongOrAnswer3,wrongOrAnswer4){

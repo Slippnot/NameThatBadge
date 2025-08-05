@@ -78,7 +78,7 @@ button:active {
     max-width: 100%;
     object-fit: cover;
   }
-  #scoreDisplay {
+  #scoreDisplay, .hiScores {
     font-size: 1.3rem;
   }
 }
