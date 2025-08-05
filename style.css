@@ -20,7 +20,7 @@ header {
   float: left;
   cursor: pointer;
 }
-#name, #scoreDisplay, .hiScores {
+#titleName, #scoreDisplay, .hiScores {
   font-size: 2rem;
   font-weight: bold;
   color: aliceblue;
@@ -80,6 +80,9 @@ button:active {
   }
   #scoreDisplay, .hiScores {
     font-size: 1.3rem;
+  }
+  #titleName {
+    font-size: 31px;
   }
 }
 

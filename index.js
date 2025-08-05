@@ -2,6 +2,7 @@ import * as globalArrays from "./clubArrays.js";
 
 // USED FOR TESTING NEW GAMEMODES --- clubNameArray[clubNameArray.length - 1] --- \\
 
+const titleName = document.getElementById("titleName");
 const clubBadge = document.getElementById("clubBadge");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const option1 = document.getElementById("option1");
@@ -35,6 +36,7 @@ allHiscores.onclick = () => {
   gamemodeButtons.forEach((e) => {
     e.style.display = `none`;
   });
+  setTitleName(`All Gamemode Hi-Scores`);
   allHiscores.style.display = `none`;
   premHiScoreDisplay.innerHTML = `Prem Hi-Score: ${localStorage.getItem("premHiScoreSaved")} / ${premClubArrayLength}`;
   laLigaHiScoreDisplay.innerHTML = `La Liga Hi-Score: ${localStorage.getItem("laLigaHiScoreSaved")} / ${laLigaClubArrayLength}`;
@@ -58,6 +60,7 @@ premGamemode.onclick = () => {
     premHiScoreDisplay.innerHTML = `Prem Hi-Score: ${savedPremHiScore} / ${premClubArrayLength}`;
     premHiScore = savedPremHiScore;
   }
+  setTitleName(`Name That Premier League Badge`);
   playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
   optionBTN.forEach((buttons) => {
     buttons.addEventListener("click", () => {
@@ -72,6 +75,7 @@ laLigaGamemode.onclick = () => {
     laLigaHiScoreDisplay.innerHTML = `La Liga Hi-Score: ${savedLaLigaHiScore} / ${laLigaClubArrayLength}`;
     laLigaHiScore = savedLaLigaHiScore;
   }
+  setTitleName(`Name That La Liga Badge`);
   playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
   optionBTN.forEach((buttons) => {
     buttons.addEventListener("click", () => {
@@ -187,6 +191,10 @@ function playCorrectAudio(){
 
 function playWrongAudio(){
   wrongAudio.play();
+}
+
+function setTitleName(setname){
+  titleName.innerHTML = `${setname}`;
 }
 
 document.getElementById("homeButton").onclick = () => {location.reload();}
