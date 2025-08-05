@@ -61,10 +61,10 @@ premGamemode.onclick = () => {
     premHiScore = savedPremHiScore;
   }
   setTitleName(`Name That Premier League Badge`);
-  playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
+  playGame(globalArrays.premClubsArray,premClubArrayLength,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
   optionBTN.forEach((buttons) => {
     buttons.addEventListener("click", () => {
-      playGame(globalArrays.premClubsArray,premClubArrayLength,`premierLeagueBadges`,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
+      playGame(globalArrays.premClubsArray,premClubArrayLength,premHiScore,premHiScoreDisplay,`Prem Hi-Score`,`premHiScoreSaved`);
     });
   });
 }
@@ -76,15 +76,15 @@ laLigaGamemode.onclick = () => {
     laLigaHiScore = savedLaLigaHiScore;
   }
   setTitleName(`Name That La Liga Badge`);
-  playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
+  playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
   optionBTN.forEach((buttons) => {
     buttons.addEventListener("click", () => {
-      playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,`laLigaBadges`,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
+      playGame(globalArrays.laLigaClubsArray,laLigaClubArrayLength,laLigaHiScore,laLigaHiScoreDisplay,`La Liga Hi-Score`,`laLigaHiScoreSaved`);
     });
   });
 }
 
-function playGame(clubNameArray,totalArrayLength,badgeArtFolder,hiScore,hiScoreDisplay,hiScoreText,hiScoreSaved){
+function playGame(clubNameArray,totalArrayLength,hiScore,hiScoreDisplay,hiScoreText,hiScoreSaved){
   let rng = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
   let randomBadge = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   let wrong1 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
@@ -127,7 +127,7 @@ function playGame(clubNameArray,totalArrayLength,badgeArtFolder,hiScore,hiScoreD
   }
 
   clubBadge.style.display = `block`;
-  clubBadge.src = `clubBadgesImages/${badgeArtFolder}/${badgeQuestion}.png`;
+  clubBadge.src = `clubBadgesImages/${badgeQuestion}.png`;
 
   scoreDisplay.style.display = `block`;
 
