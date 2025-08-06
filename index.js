@@ -35,23 +35,23 @@ var wrongAudio = new Audio('audioFiles/WrongtAnswerAudio.mp3');
 
 allHiscores.onclick = () => {
   gamemodeButtons.forEach((e) => {
-    e.style.display = `none`;
+    hideItem(e);
   });
   setTitleName(`All Gamemode Hi-Scores`);
-  allHiscores.style.display = `none`;
-  premHiScoreDisplay.innerHTML = `Prem Hi-Score: ${localStorage.getItem("premHiScoreSaved")} / ${premClubArrayLength}`;
-  laLigaHiScoreDisplay.innerHTML = `La Liga Hi-Score: ${localStorage.getItem("laLigaHiScoreSaved")} / ${laLigaClubArrayLength}`;
+  hideItem(allHiscores);
+  setHiScoreRanks("premHiScoreSaved","Premier League Hi-Score: ",premClubArrayLength,premHiScoreDisplay);
+  setHiScoreRanks("laLigaHiScoreSaved","La Liga Hi-Score: ",laLigaClubArrayLength,laLigaHiScoreDisplay);
 }
 
 gamemodeButtons.forEach((buttons) => {
   buttons.addEventListener("click", () => {
     gamemodeButtons.forEach((e) => {
-      e.style.display = `none`;
+      hideItem(e);
     });
     optionBTN.forEach((e) => {
       e.style.display = `block`;
     });
-    allHiscores.style.display = `none`;
+    hideItem(allHiscores);
   });
 });
 
@@ -147,7 +147,7 @@ function playGame(clubNameArray,totalArrayLength,hiScore,hiScoreDisplay,hiScoreT
   
   if(clubNameArray.length == 0){
     optionBTN.forEach((e) => {
-      e.style.display = `none`;
+      hideItem(e);
     });
     scoreDisplay.innerHTML = `Total Score: ${score} / ${totalArrayLength}`;
   }
@@ -156,6 +156,19 @@ function playGame(clubNameArray,totalArrayLength,hiScore,hiScoreDisplay,hiScoreT
     hiScore = score;
     hiScoreDisplay.innerHTML = `${hiScoreText}: ${hiScore} / ${totalArrayLength}`;
     localStorage.setItem(`${hiScoreSaved}`, JSON.stringify(hiScore));
+  }
+
+  if(hiScore == totalArrayLength){
+    hiScoreDisplay.style.color = `hsl(51, 100%, 50%)`;
+  }
+  else if(hiScore >= totalArrayLength / 3){
+    hiScoreDisplay.style.color = `hsl(0, 0%, 75%)`;
+  }
+  else if(hiScore <= totalArrayLength / 2){
+    hiScoreDisplay.style.color = `rgb(167, 70, 70)`;
+  }
+  else {
+    hiScoreDisplay.style.color = `aliceblue`;
   }
 }
 
@@ -196,6 +209,29 @@ function playWrongAudio(){
 
 function setTitleName(setname){
   titleName.innerHTML = `${setname}`;
+}
+
+function hideItem(itemName){
+  itemName.style.display = `none`;
+}
+
+function setHiScoreRanks(hiScoreSaved,hiScoreText,totalArrayLength,hiScoreDisplay){
+  if(localStorage.getItem(`${hiScoreSaved}`) == totalArrayLength){
+    hiScoreDisplay.style.color = `hsl(51, 100%, 50%)`;
+    hiScoreDisplay.innerHTML = `${hiScoreText} ${localStorage.getItem(`${hiScoreSaved}`)} / ${totalArrayLength}`;
+  }
+  else if(localStorage.getItem(`${hiScoreSaved}`) >= totalArrayLength / 3){
+    hiScoreDisplay.style.color = `hsl(0, 0%, 75%)`;
+    hiScoreDisplay.innerHTML = `${hiScoreText} ${localStorage.getItem(`${hiScoreSaved}`)} / ${totalArrayLength}`;
+  }
+  else if(localStorage.getItem(`${hiScoreSaved}`) <= totalArrayLength / 3){
+    hiScoreDisplay.style.color = `rgb(167, 70, 70)`;
+    hiScoreDisplay.innerHTML = `${hiScoreText} ${localStorage.getItem(`${hiScoreSaved}`)} / ${totalArrayLength}`;
+  }
+  else {
+    hiScoreDisplay.style.color = `aliceblue`;
+    hiScoreDisplay.innerHTML = `${hiScoreText} ${localStorage.getItem(`${hiScoreSaved}`)} / ${totalArrayLength}`;
+  }
 }
 
 function checkForKeyPresses(){
