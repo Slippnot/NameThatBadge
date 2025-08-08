@@ -107,14 +107,14 @@ function playGame(clubNameArray,totalArrayLength,hiScore,hiScoreDisplay,hiScoreT
   let rng = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
   let randomBadge = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   // ⬇⬇⬇⬇ USED FOR TESTING NEW GAMEMODES ⬇⬇⬇⬇
-  let testNewBadges = clubNameArray[clubNameArray.length - 1]
+  // let testNewBadges = clubNameArray[clubNameArray.length - 1]
   // ⬆⬆⬆⬆ USED FOR TESTING NEW GAMEMODES ⬆⬆⬆⬆
   let wrong1 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   let wrong2 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   let wrong3 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
 
-  let badgeAnswer = testNewBadges;
-  let badgeQuestion = testNewBadges;
+  let badgeAnswer = randomBadge;
+  let badgeQuestion = randomBadge;
 
   if(wrong1 == wrong2 || wrong1 == wrong3){
     wrong1 = globalArrays.removedArray[Math.floor(Math.random() * globalArrays.removedArray.length)];
