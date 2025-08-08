@@ -1,7 +1,5 @@
 import * as globalArrays from "./clubArrays.js";
 
-// USED FOR TESTING NEW GAMEMODES --- clubNameArray[clubNameArray.length - 1] --- \\
-
 const homeButton = document.getElementById("homeButton");
 const titleName = document.getElementById("titleName");
 const clubBadge = document.getElementById("clubBadge");
@@ -16,19 +14,23 @@ const gamemodeButtons = document.querySelectorAll(".gamemodeButtons");
 
 const premHiScoreDisplay = document.getElementById("premHiScoreDisplay");
 const laLigaHiScoreDisplay = document.getElementById("laLigaHiScoreDisplay");
+const serieAHiScoreDisplay = document.getElementById("serieAHiScoreDisplay");
 
 const premGamemode = document.getElementById("premGamemode");
 const laLigaGamemode = document.getElementById("laLigaGamemode");
+const serieAGamemode = document.getElementById("serieAGamemode");
 
 const allHiscores = document.getElementById("allHiscores");
 
 const premClubArrayLength = globalArrays.premClubsArray.length;
 const laLigaClubArrayLength = globalArrays.laLigaClubsArray.length;
+const serieAClubArrayLength = globalArrays.serieAClubsArray.length;
 
 let score = 0;
 
 let premHiScore = 0;
 let laLigaHiScore = 0;
+let serieAHiScore = 0;
 
 var correctAudio = new Audio('audioFiles/CorrectAnswerAudio.mp3');
 var wrongAudio = new Audio('audioFiles/WrongtAnswerAudio.mp3');
@@ -41,6 +43,7 @@ allHiscores.onclick = () => {
   hideItem(allHiscores);
   setHiScoreRanks("premHiScoreSaved","Premier League Hi-Score: ",premClubArrayLength,premHiScoreDisplay);
   setHiScoreRanks("laLigaHiScoreSaved","La Liga Hi-Score: ",laLigaClubArrayLength,laLigaHiScoreDisplay);
+  setHiScoreRanks("serieAHiScoreSaved","Serie A Hi-Score: ",serieAClubArrayLength,serieAHiScoreDisplay);
 }
 
 gamemodeButtons.forEach((buttons) => {
@@ -85,15 +88,33 @@ laLigaGamemode.onclick = () => {
   });
 }
 
+serieAGamemode.onclick = () => {
+  if(localStorage.getItem("serieAHiScoreSaved") !== null){
+    let savedSerieAHiscore = JSON.parse(localStorage.getItem("serieAHiScoreSaved"));
+    serieAHiScoreDisplay.innerHTML = `Serie A Hi-Score: ${savedSerieAHiscore} / ${serieAClubArrayLength}`;
+    serieAHiScore = savedSerieAHiscore;
+  }
+  setTitleName(`Name That Serie A Badge`);
+  playGame(globalArrays.serieAClubsArray,serieAClubArrayLength,serieAHiScore,serieAHiScoreDisplay,`Serie A Hi-Score`,`serieAHiScoreSaved`);
+  optionBTN.forEach((buttons) => {
+    buttons.addEventListener("click", () => {
+      playGame(globalArrays.serieAClubsArray,serieAClubArrayLength,serieAHiScore,serieAHiScoreDisplay,`Serie A Hi-Score`,`serieAHiScoreSaved`);
+    });
+  });
+}
+
 function playGame(clubNameArray,totalArrayLength,hiScore,hiScoreDisplay,hiScoreText,hiScoreSaved){
   let rng = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
   let randomBadge = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
+  // ⬇⬇⬇⬇ USED FOR TESTING NEW GAMEMODES ⬇⬇⬇⬇
+  let testNewBadges = clubNameArray[clubNameArray.length - 1]
+  // ⬆⬆⬆⬆ USED FOR TESTING NEW GAMEMODES ⬆⬆⬆⬆
   let wrong1 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   let wrong2 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
   let wrong3 = clubNameArray[Math.floor(Math.random() * clubNameArray.length)];
 
-  let badgeAnswer = randomBadge;
-  let badgeQuestion = randomBadge;
+  let badgeAnswer = testNewBadges;
+  let badgeQuestion = testNewBadges;
 
   if(wrong1 == wrong2 || wrong1 == wrong3){
     wrong1 = globalArrays.removedArray[Math.floor(Math.random() * globalArrays.removedArray.length)];
