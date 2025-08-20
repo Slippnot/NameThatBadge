@@ -34,6 +34,10 @@ let serieAHiScore = 0;
 
 var correctAudio = new Audio('audioFiles/CorrectAnswerAudio.mp3');
 var wrongAudio = new Audio('audioFiles/WrongtAnswerAudio.mp3');
+var hoverAudio = new Audio('audioFiles/hoverAudio.mp3');
+
+playHoverAudio(optionBTN);
+playHoverAudio(gamemodeButtons);
 
 allHiscores.onclick = () => {
   gamemodeButtons.forEach((e) => {
@@ -221,11 +225,25 @@ function setAnswerAndWrongOptions(wrongOrAnswer1,wrongOrAnswer2,wrongOrAnswer3,w
 }
 
 function playCorrectAudio(){
+  let volumeRange = (Math.random() * (1.0 - 0.1) + 0.1);
+  correctAudio.volume = volumeRange;
   correctAudio.play();
 }
 
 function playWrongAudio(){
+  let volumeRange = (Math.random() * (1.0 - 0.1) + 0.1);
+  wrongAudio.volume = volumeRange;
   wrongAudio.play();
+}
+
+function playHoverAudio(buttonGroup){
+  buttonGroup.forEach((buttons) => {
+    buttons.addEventListener("mouseover", () => {
+      let volumeRange = (Math.random() * (1.0 - 0.1) + 0.1);
+      hoverAudio.volume = volumeRange;
+      hoverAudio.play();
+    });
+  });
 }
 
 function setTitleName(setname){
